@@ -9,7 +9,9 @@ public class PlayerMovement : MonoBehaviour
     private Animator anim;
     private float dirX = 0f;
     [SerializeField]private float moveSpeed = 7f;
-    // [SerializeField]private float jumpForce = 14f;
+    [SerializeField]private float jumpForce = 14f;
+    public GameObject panelinventory;
+
 
     // Start is called before the first frame update
     private void Start()
@@ -25,12 +27,13 @@ public class PlayerMovement : MonoBehaviour
         dirX = Input.GetAxisRaw("Horizontal");
         rb.velocity = new Vector2(dirX * moveSpeed, rb.velocity.y); 
 
-        // if (Input.GetButtonDown("Jump")) // && IsGrounded())
-        // {
-        //     rb.velocity = new Vector2( rb.velocity.x, jumpForce);        
-        // }
+           if (Input.GetButtonDown("Jump")) // && IsGrounded())
+        {
+            rb.velocity = new Vector2( rb.velocity.x, jumpForce);        
+        }
 
          UpdateAnimationState(); 
+         OpenInventory();
     
     }
 
@@ -52,4 +55,17 @@ public class PlayerMovement : MonoBehaviour
                 // sprite.flipX = false;
             }
         }
+
+        private void OpenInventory()
+        {
+             if (Input.GetKeyDown(KeyCode.C))
+        {
+         panelinventory.SetActive(!panelinventory.activeSelf);
+        }
+        }
+
+    //     private bool IsGrounded()
+    // {
+    //      return Physics2D.BoxCast(coll.bounds.center, coll.bounds.size, 0f, Vector2.down, .1f, jumpableGround);
+    // }
     }
